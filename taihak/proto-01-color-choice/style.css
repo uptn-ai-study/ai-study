@@ -1,0 +1,1355 @@
+/* ==========================================================================
+   DIALED // COLOR - Premium Style Sheet
+   ========================================================================== */
+
+/* 1. 디자인 시스템 토큰 및 변수 */
+:root {
+  --bg-main: #08090c;
+  --bg-card: rgba(22, 25, 35, 0.65);
+  --bg-input: rgba(10, 11, 15, 0.8);
+  --border-color: rgba(255, 255, 255, 0.07);
+  --border-active: rgba(0, 242, 254, 0.4);
+  
+  /* 네온 색상 셋 */
+  --color-primary: #00f2fe;
+  --color-primary-rgb: 0, 242, 254;
+  --color-secondary: #4facfe;
+  --color-accent: #00e676;
+  --color-danger: #ff5252;
+  --color-warning: #ffd600;
+  
+  /* 텍스트 색상 */
+  --text-main: #f1f3f9;
+  --text-muted: #8c92a6;
+  --text-dark: #08090c;
+
+  /* 글래스모피즘 섀도우 & 블러 */
+  --glass-blur: blur(20px);
+  --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --neon-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+  
+  /* 타이밍 */
+  --transition-smooth: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* 2. 전역 스타일 초기화 */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: var(--bg-main);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 배경 네온 글로우 효과 */
+.bg-glow {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(circle, rgba(0, 242, 254, 0.08) 0%, rgba(79, 172, 254, 0.03) 50%, rgba(0, 0, 0, 0) 100%);
+  filter: blur(80px);
+  z-index: 0;
+  pointer-events: none;
+  animation: pulse-glow 10s infinite alternate ease-in-out;
+}
+
+@keyframes pulse-glow {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+  100% { transform: translate(-50%, -50%) scale(1.2); opacity: 1; }
+}
+
+/* 3. 레이아웃 구조 */
+.app-container {
+  width: 100%;
+  max-width: 600px;
+  min-height: 90vh;
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5px;
+  border-bottom: 1px solid var(--border-color);
+  margin-bottom: 25px;
+}
+
+.logo {
+  font-weight: 800;
+  font-size: 1.3rem;
+  letter-spacing: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-smooth);
+}
+
+.logo:hover {
+  transform: scale(1.03);
+  opacity: 0.95;
+}
+
+.logo-accent {
+  color: var(--text-muted);
+  font-weight: 300;
+}
+
+.logo-separator {
+  color: var(--color-primary);
+  text-shadow: var(--neon-shadow);
+}
+
+.logo-main {
+  color: var(--text-main);
+}
+
+.app-main {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.app-footer {
+  text-align: center;
+  padding: 25px 0 10px 0;
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.5px;
+}
+
+/* 4. 화면 관리 (Screen Toggle) */
+.screen {
+  display: none;
+  width: 100%;
+  animation: fadeIn 0.4s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+.screen.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* 5. 프리미엄 카드 및 패널 스타일 (Glassmorphism) */
+.glass-panel {
+  background: var(--bg-card);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  box-shadow: var(--glass-shadow);
+  transition: var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: rgba(255, 255, 255, 0.12);
+}
+
+/* 6. 시작 화면 스타일 (Start Screen) */
+.intro-container {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-title {
+  font-size: 2.2rem;
+  font-weight: 800;
+  line-height: 1.25;
+  margin-bottom: 15px;
+  letter-spacing: -0.5px;
+}
+
+.main-title .highlight {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 30px rgba(0, 242, 254, 0.2);
+}
+
+.subtitle {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.6;
+  max-width: 460px;
+  margin-bottom: 35px;
+}
+
+.config-card {
+  width: 100%;
+  padding: 25px;
+  margin-bottom: 35px;
+}
+
+.card-title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--text-main);
+  letter-spacing: 1px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+
+.difficulty-options {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.diff-option {
+  cursor: pointer;
+  width: 100%;
+}
+
+.diff-option input[type="radio"] {
+  display: none;
+}
+
+.diff-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 16px 20px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  transition: var(--transition-smooth);
+  text-align: left;
+}
+
+.diff-option input[type="radio"]:checked + .diff-card {
+  border-color: var(--color-primary);
+  background: rgba(0, 242, 254, 0.05);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+}
+
+.diff-name {
+  font-weight: 800;
+  font-size: 0.95rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 4px;
+  color: var(--text-main);
+}
+
+.diff-option input[type="radio"]:checked + .diff-card .diff-name {
+  color: var(--color-primary);
+}
+
+.diff-desc {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+/* 최근 기록 패널 */
+.recent-records {
+  width: 100%;
+  margin-top: 30px;
+  padding: 20px;
+  text-align: left;
+}
+
+.records-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.record-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 8px;
+  border-left: 3px solid var(--color-secondary);
+  font-size: 0.85rem;
+}
+
+.record-date {
+  color: var(--text-muted);
+}
+
+.record-diff {
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: var(--color-primary);
+}
+
+.record-score {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+}
+
+/* 7. 암기 화면 스타일 (Reveal Screen) */
+.reveal-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.timer-wrapper {
+  width: 100%;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timer-countdown-large {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 3.8rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+  line-height: 1;
+  margin-bottom: 15px;
+  letter-spacing: 1px;
+}
+
+.timer-bar-container {
+  width: 80%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.timer-bar {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  box-shadow: var(--neon-shadow);
+  border-radius: 3px;
+  transform-origin: left;
+}
+
+.timer-label {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-top: 15px;
+  margin-bottom: 25px;
+  letter-spacing: -0.2px;
+}
+
+.color-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+  max-width: 500px;
+}
+
+/* 1개 타일 렌더링용 확장 클래스 */
+.single-tile-grid {
+  justify-content: center;
+  align-items: center;
+}
+
+.single-tile-grid .color-tile {
+  flex: none;
+  width: 180px;
+  height: 180px;
+  max-width: 180px;
+  border-radius: 24px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4), 0 0 0 1px rgba(255, 255, 255, 0.06);
+}
+
+.color-tile {
+  flex: 1 1 calc(33% - 16px);
+  aspect-ratio: 1;
+  min-width: 80px;
+  max-width: 120px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  transition: var(--transition-smooth);
+}
+
+.color-tile:hover {
+  transform: translateY(-5px);
+}
+
+/* 8. 복원 조작 화면 스타일 (Recall Screen) */
+.recall-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.game-progress {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 25px;
+}
+
+.progress-steps {
+  display: flex;
+  gap: 8px;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  transition: var(--transition-smooth);
+}
+
+.dot.active {
+  background: var(--color-primary);
+  box-shadow: var(--neon-shadow);
+  transform: scale(1.2);
+}
+
+.dot.completed {
+  background: var(--color-secondary);
+}
+
+.progress-text {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* 비교 타일 보드 */
+.compare-board {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.compare-tile-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.tile-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.compare-tile {
+  width: 130px;
+  height: 130px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  transition: border-color 0.3s;
+}
+
+.target-tile {
+  /* 기억 속 색상은 텍스처 패턴을 주어 감춤 */
+  background-color: #1a1a24;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 12px 12px;
+}
+
+.question-mark {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: rgba(255, 255, 255, 0.1);
+  user-select: none;
+}
+
+.guess-tile {
+  background-color: var(--bg-main);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+/* 조작 슬라이더 패널 */
+.control-panel {
+  width: 100%;
+  padding: 25px;
+  margin-bottom: 30px;
+}
+
+.control-group {
+  margin-bottom: 20px;
+}
+
+.control-group:last-child {
+  margin-bottom: 0;
+}
+
+.control-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  margin-bottom: 10px;
+}
+
+.control-name {
+  color: var(--text-muted);
+}
+
+.control-value {
+  color: var(--text-main);
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.slider-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 슬라이더 미세 조정 버튼 */
+.tune-btn {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  transition: var(--transition-smooth);
+}
+
+.tune-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-main);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.tune-btn:active {
+  transform: scale(0.92);
+}
+
+/* 슬라이더 인풋 커스텀 디자인 */
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 10px;
+  border-radius: 5px;
+  outline: none;
+  transition: var(--transition-smooth);
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+
+/* Chrome, Safari 커스텀 트랙 & 썸 */
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--bg-main);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.slider::-webkit-slider-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* Firefox 커스텀 트랙 & 썸 */
+.slider::-moz-range-thumb {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid var(--bg-main);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5), 0 0 0 2px rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: transform 0.15s;
+}
+
+.slider::-moz-range-thumb:hover {
+  transform: scale(1.15);
+}
+
+/* 각각의 슬라이더 트랙 배경 그라디언트 설정 */
+.slider-hue {
+  background: linear-gradient(to right, 
+    #ff0000 0%, #ffff00 17%, #00ff00 33%, 
+    #00ffff 50%, #0000ff 67%, #ff00ff 83%, #ff0000 100%);
+}
+
+.slider-sat {
+  background: linear-gradient(to right, #808080, #ff0000); /* JS에서 동적 업데이트 예정 */
+}
+
+.slider-bri {
+  background: linear-gradient(to right, #000000, #ff0000); /* JS에서 동적 업데이트 예정 */
+}
+
+/* 9. 결과 화면 스타일 (Results Screen) */
+.results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.score-dashboard {
+  width: 100%;
+  padding: 30px;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  overflow: hidden;
+}
+
+.score-dashboard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+}
+
+.dashboard-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.grand-score {
+  font-family: 'Outfit', sans-serif;
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1;
+  background: linear-gradient(135deg, #ffffff 40%, var(--color-primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.score-max {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  margin-top: 5px;
+  margin-bottom: 15px;
+  letter-spacing: 0.5px;
+}
+
+.rating-badge {
+  display: inline-block;
+  padding: 8px 18px;
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  border-radius: 30px;
+  background: rgba(0, 242, 254, 0.08);
+  color: var(--color-primary);
+  border: 1px solid var(--border-active);
+  text-shadow: 0 0 10px rgba(0, 242, 254, 0.3);
+  text-transform: uppercase;
+}
+
+.rating-badge.tier-s {
+  color: var(--color-accent);
+  background: rgba(0, 230, 118, 0.08);
+  border-color: rgba(0, 230, 118, 0.4);
+}
+
+.rating-badge.tier-a {
+  color: var(--color-primary);
+  background: rgba(0, 242, 254, 0.08);
+  border-color: rgba(0, 242, 254, 0.4);
+}
+
+.rating-badge.tier-b {
+  color: var(--color-secondary);
+  background: rgba(79, 172, 254, 0.08);
+  border-color: rgba(79, 172, 254, 0.4);
+}
+
+.rating-badge.tier-c {
+  color: var(--color-warning);
+  background: rgba(255, 214, 0, 0.08);
+  border-color: rgba(255, 214, 0, 0.4);
+}
+
+.section-subtitle {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  width: 100%;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.rounds-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  margin-bottom: 35px;
+}
+
+/* 라운드 디테일 로우 */
+.round-card {
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.round-main-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  cursor: pointer;
+}
+
+.round-summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.round-num {
+  font-weight: 800;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+/* 정답/추측 반반 원 */
+.split-circle {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.split-left {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+}
+
+.split-right {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 50%;
+  height: 100%;
+}
+
+.round-score-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+  font-size: 0.95rem;
+}
+
+.score-high { color: var(--color-accent); }
+.score-mid { color: var(--color-primary); }
+.score-low { color: var(--color-warning); }
+.score-poor { color: var(--color-danger); }
+
+/* 토글 세부 분석 패널 */
+.round-details-panel {
+  display: none;
+  background: rgba(0, 0, 0, 0.25);
+  border-radius: 10px;
+  padding: 12px 16px;
+  margin-top: 5px;
+  animation: slideDown 0.25s ease-out forwards;
+}
+
+.round-card.expanded .round-details-panel {
+  display: block;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.detail-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  margin-bottom: 8px;
+}
+
+.detail-row:last-child {
+  margin-bottom: 0;
+}
+
+.detail-lbl {
+  color: var(--text-muted);
+}
+
+.detail-val {
+  font-family: 'Share Tech Mono', monospace;
+}
+
+.val-plus { color: var(--color-danger); }
+.val-minus { color: var(--color-secondary); }
+.val-ok { color: var(--color-accent); }
+
+/* 액션 버튼 그룹 */
+.results-actions {
+  display: flex;
+  gap: 15px;
+  width: 100%;
+}
+
+.results-actions .btn {
+  flex: 1;
+}
+
+/* 10. 공통 버튼 디자인 */
+.btn {
+  font-family: 'Outfit', sans-serif;
+  font-weight: 600;
+  font-size: 0.95rem;
+  letter-spacing: 1px;
+  padding: 14px 28px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  transition: var(--transition-smooth);
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  user-select: none;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: var(--text-dark);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(0, 242, 254, 0.25);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.09);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-glow {
+  box-shadow: var(--neon-shadow);
+}
+
+.icon-button {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 8px;
+  transition: var(--transition-smooth);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-button:hover {
+  color: var(--text-main);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.btn-danger {
+  background: rgba(255, 82, 82, 0.1);
+  color: var(--color-danger);
+  border: 1px solid rgba(255, 82, 82, 0.25);
+}
+
+.btn-danger:hover {
+  background: rgba(255, 82, 82, 0.18);
+  border-color: rgba(255, 82, 82, 0.4);
+}
+
+.btn-sm {
+  padding: 8px 16px;
+  font-size: 0.8rem;
+  border-radius: 8px;
+}
+
+.btn-icon {
+  flex-shrink: 0;
+}
+
+/* 11. 모달 팝업 디자인 */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(8, 9, 12, 0.75);
+  backdrop-filter: blur(8px);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal.active {
+  display: flex;
+  animation: modalFadeIn 0.3s ease-out forwards;
+}
+
+@keyframes modalFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.modal-content {
+  width: 90%;
+  max-width: 480px;
+  padding: 25px;
+  position: relative;
+  animation: modalScaleIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards;
+}
+
+@keyframes modalScaleIn {
+  from { transform: scale(0.9) translateY(10px); }
+  to { transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+}
+
+.modal-header h3 {
+  font-size: 1.1rem;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+.close-modal {
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 1.8rem;
+  cursor: pointer;
+  line-height: 1;
+  transition: var(--transition-smooth);
+}
+
+.close-modal:hover {
+  color: var(--text-main);
+}
+
+.stats-overview {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 25px;
+}
+
+.stat-card {
+  flex: 1;
+  padding: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.stat-val {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--color-primary);
+  margin-bottom: 4px;
+}
+
+.stat-lbl {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+
+.leaderboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.leaderboard-section h4 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.table-container {
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 10px;
+  background: rgba(0,0,0,0.15);
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.8rem;
+}
+
+.stats-table th, .stats-table td {
+  padding: 10px 12px;
+}
+
+.stats-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  position: sticky;
+  top: 0;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.stats-table tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.stats-table tr:last-child {
+  border-bottom: none;
+}
+
+.stats-table td {
+  font-family: 'Outfit', sans-serif;
+}
+
+.stats-table td:nth-child(3) {
+  font-family: 'Share Tech Mono', monospace;
+  font-weight: bold;
+  color: var(--color-primary);
+}
+
+/* 12. 토스트 메시지 알림 */
+.toast-container {
+  position: fixed;
+  bottom: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+}
+
+.toast {
+  background: rgba(18, 20, 28, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--border-active);
+  color: var(--text-main);
+  padding: 12px 24px;
+  border-radius: 10px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  animation: toastIn 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards,
+             toastOut 0.3s cubic-bezier(0.25, 0.8, 0.25, 1) forwards 2.5s;
+}
+
+@keyframes toastIn {
+  from { opacity: 0; transform: translateY(20px) scale(0.9); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes toastOut {
+  from { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 0; transform: translateY(-20px) scale(0.9); }
+}
+
+/* 13. 반응형 및 모바일 최적화 미디어 쿼리 */
+@media (max-width: 480px) {
+  .app-container {
+    margin: 10px;
+  }
+  
+  .main-title {
+    font-size: 1.8rem;
+  }
+  
+  .compare-board {
+    gap: 15px;
+  }
+  
+  .compare-tile {
+    width: 105px;
+    height: 105px;
+  }
+  
+  .question-mark {
+    font-size: 2rem;
+  }
+  
+  .control-panel {
+    padding: 16px;
+  }
+  
+  .slider-wrapper {
+    gap: 8px;
+  }
+  
+  .tune-btn {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+  
+  .btn {
+    padding: 12px 20px;
+    font-size: 0.9rem;
+  }
+  
+  .round-card {
+    padding: 12px 14px;
+  }
+}
+
+/* 유틸리티 */
+.hidden {
+  display: none !important;
+}
+
+/* 14. 난이도별 동적 테마 (EASY, NORMAL, HARD) */
+
+/* =========================================
+   EASY 난이도 (노란색 테마)
+   ========================================= */
+/* 1) 시작 화면 라디오 카드 */
+.theme-easy .diff-option input[type="radio"][value="easy"]:checked + .diff-card {
+  border-color: var(--color-warning);
+  background: rgba(255, 214, 0, 0.04);
+  box-shadow: 0 0 15px rgba(255, 214, 0, 0.12);
+}
+.theme-easy .diff-option input[type="radio"][value="easy"]:checked + .diff-card .diff-name {
+  color: var(--color-warning);
+}
+/* 2) 대형 카운트다운 타이머 수치 */
+.theme-easy .timer-countdown-large {
+  color: var(--color-warning);
+  text-shadow: 0 0 15px rgba(255, 214, 0, 0.4);
+}
+/* 3) 암기 타이머 프로그레스바 */
+.theme-easy .timer-bar {
+  background: linear-gradient(to right, #ffd600, #ff9100);
+  box-shadow: 0 0 15px rgba(255, 214, 0, 0.35);
+}
+/* 4) 복원 조작 프로그레스 도트 */
+.theme-easy .dot.active {
+  background: var(--color-warning);
+  box-shadow: 0 0 10px rgba(255, 214, 0, 0.4);
+}
+.theme-easy .dot.completed {
+  background: #ff9100;
+}
+/* 5) 핵심 액션 버튼들 (도전 시작하기, 색상 확정하기, 다시 도전하기) */
+.theme-easy #btn-start-game,
+.theme-easy #btn-submit-color,
+.theme-easy #btn-restart {
+  background: linear-gradient(135deg, #ffd600 0%, #ff9100 100%);
+  color: var(--text-dark);
+  box-shadow: 0 0 20px rgba(255, 214, 0, 0.25);
+}
+.theme-easy #btn-start-game:hover,
+.theme-easy #btn-submit-color:hover,
+.theme-easy #btn-restart:hover {
+  box-shadow: 0 10px 25px rgba(255, 214, 0, 0.45);
+}
+
+/* =========================================
+   NORMAL 난이도 (파란색 테마)
+   ========================================= */
+/* 1) 시작 화면 라디오 카드 */
+.theme-normal .diff-option input[type="radio"][value="normal"]:checked + .diff-card {
+  border-color: var(--color-primary);
+  background: rgba(0, 242, 254, 0.04);
+  box-shadow: 0 0 15px rgba(0, 242, 254, 0.12);
+}
+.theme-normal .diff-option input[type="radio"][value="normal"]:checked + .diff-card .diff-name {
+  color: var(--color-primary);
+}
+/* 2) 대형 카운트다운 타이머 수치 */
+.theme-normal .timer-countdown-large {
+  color: var(--color-primary);
+  text-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+}
+/* 3) 암기 타이머 프로그레스바 */
+.theme-normal .timer-bar {
+  background: linear-gradient(to right, var(--color-primary), var(--color-secondary));
+  box-shadow: var(--neon-shadow);
+}
+/* 4) 복원 조작 프로그레스 도트 */
+.theme-normal .dot.active {
+  background: var(--color-primary);
+  box-shadow: var(--neon-shadow);
+}
+.theme-normal .dot.completed {
+  background: var(--color-secondary);
+}
+/* 5) 핵심 액션 버튼들 */
+.theme-normal #btn-start-game,
+.theme-normal #btn-submit-color,
+.theme-normal #btn-restart {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  color: var(--text-dark);
+  box-shadow: 0 0 20px rgba(0, 242, 254, 0.25);
+}
+.theme-normal #btn-start-game:hover,
+.theme-normal #btn-submit-color:hover,
+.theme-normal #btn-restart:hover {
+  box-shadow: 0 10px 25px rgba(0, 242, 254, 0.45);
+}
+
+/* =========================================
+   HARD 난이도 (빨간색 테마)
+   ========================================= */
+/* 1) 시작 화면 라디오 카드 */
+.theme-hard .diff-option input[type="radio"][value="hard"]:checked + .diff-card {
+  border-color: var(--color-danger);
+  background: rgba(255, 82, 82, 0.04);
+  box-shadow: 0 0 15px rgba(255, 82, 82, 0.12);
+}
+.theme-hard .diff-option input[type="radio"][value="hard"]:checked + .diff-card .diff-name {
+  color: var(--color-danger);
+}
+/* 2) 대형 카운트다운 타이머 수치 */
+.theme-hard .timer-countdown-large {
+  color: var(--color-danger);
+  text-shadow: 0 0 15px rgba(255, 82, 82, 0.4);
+}
+/* 3) 암기 타이머 프로그레스바 */
+.theme-hard .timer-bar {
+  background: linear-gradient(to right, #ff5252, #ff1744);
+  box-shadow: 0 0 15px rgba(255, 82, 82, 0.35);
+}
+/* 4) 복원 조작 프로그레스 도트 */
+.theme-hard .dot.active {
+  background: var(--color-danger);
+  box-shadow: 0 0 10px rgba(255, 82, 82, 0.4);
+}
+.theme-hard .dot.completed {
+  background: #ff1744;
+}
+/* 5) 핵심 액션 버튼들 */
+.theme-hard #btn-start-game,
+.theme-hard #btn-submit-color,
+.theme-hard #btn-restart {
+  background: linear-gradient(135deg, #ff5252 0%, #ff1744 100%);
+  color: var(--text-main);
+  box-shadow: 0 0 20px rgba(255, 82, 82, 0.25);
+}
+.theme-hard #btn-start-game:hover,
+.theme-hard #btn-submit-color:hover,
+.theme-hard #btn-restart:hover {
+  box-shadow: 0 10px 25px rgba(255, 82, 82, 0.45);
+}
+
